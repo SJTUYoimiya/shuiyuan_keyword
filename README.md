@@ -26,4 +26,4 @@
     python main.py
     ```
 4. 按照提示输入用户名
-5. 在 `data` 文件夹中查看结果
+5. 在 `your_username` 文件夹中查看结果
