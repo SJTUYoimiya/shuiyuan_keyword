@@ -47,16 +47,19 @@ def draw_wordcloud(df, username):
     plt.figure(figsize=(20, 12))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis('off')
-    plt.savefig(f'data/{username}.png')
+    plt.savefig(f'{username}/{username}.png')
 
-def main(df):
+
+def main(df, username):
     texts = df['context'].tolist()
 
     tokens = tokenization(texts)
     df_tfidf = tfidf(tokens)
 
-    df_tfidf.to_csv('data/keywords.csv', index=False)
-    draw_wordcloud(df_tfidf, 'yoimiya')
+    df_tfidf.to_csv(f'{username}/keywords.csv', index=False)
+    draw_wordcloud(df_tfidf, username)
+    print(f'Successfully saved the keywords and wordcloud to {username} folder.')
+
 
 if __name__ == '__main__':
     df = pd.read_csv('tmp/context.csv')
