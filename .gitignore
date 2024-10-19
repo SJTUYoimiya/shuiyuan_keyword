@@ -208,3 +208,5 @@ pyrightconfig.json
 old/
 tmp/
 ./test.*
+
+*/
