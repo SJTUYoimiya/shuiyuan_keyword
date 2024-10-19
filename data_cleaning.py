@@ -4,6 +4,7 @@ import itertools
 from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 import os
+from tqdm import tqdm
 
 def get_context(content):
     soup = BeautifulSoup(content, 'lxml')
@@ -45,10 +46,10 @@ def read_all_contexts(record):
 
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         futures = [executor.submit(read_context, topic_id, post_id) for topic_id, post_id in record]
-        for future in futures:
+        for future in tqdm(futures, total=len(futures), desc='Fetching post context', ncols=80, unit='post'):
             if future.result() is None:
                 continue
-            text, emoji_list, topic_id, post_id = future.result()
+            text, _, topic_id, post_id = future.result()
 
             if text != '':
                 data = {'topic': topic_id, 'post': post_id, 'context':text}
@@ -71,4 +72,4 @@ if __name__ == '__main__':
     contexts, emojis = read_all_contexts(record[:10])
     
     contexts.to_csv('./tmp/context.csv', index=False, encoding='UTF-8')
-    emojis.to_csv('./tmp/emoji.csv', index=False, encoding='UTF-8')
+    # emojis.to_csv('./tmp/emoji.csv', index=False, encoding='UTF-8')

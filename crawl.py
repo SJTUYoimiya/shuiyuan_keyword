@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 import itertools
 import numpy as np
 import os
+from tqdm import tqdm
 
 
 class Shuiyuan:
@@ -35,7 +36,7 @@ class Shuiyuan:
             print(f'Failed to fetch the page: {self.url}, \nerror:', err)
             raise SystemExit(err)
         else:
-            print('Successfully fetched the page:', self.url)
+            # print('Successfully fetched the page:', self.url)
             return response.json()
 
 
@@ -64,7 +65,7 @@ def requ_id_list(username, deleted_posts=100):
 
     with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
         futures = [executor.submit(requ_id, username, offset) for offset in offsets]
-        for future in futures:
+        for future in tqdm(futures, total=len(futures), desc='Fetching post ids', ncols=80, unit='post'):
             id_list.append(future.result())
     
     id_list = list(itertools.chain(*id_list))
