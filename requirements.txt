@@ -1,0 +1,9 @@
+numpy
+pandas
+matplotlib
+scikit-learn
+requests
+beautifulsoup4
+lxml
+wordcloud
+jieba

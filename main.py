@@ -1,7 +1,7 @@
 from crawl import requ_id_list
 from data_cleaning import read_all_contexts
 
-username = 'yoimiya'
+username = input('Enter ur Shuiyuan username: ')
 
 post_id_list = requ_id_list(username)
 print('Successfully fetched the post ids, you have', len(post_id_list), 'posts.')
