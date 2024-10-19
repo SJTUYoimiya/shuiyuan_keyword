@@ -4,6 +4,7 @@ import itertools
 import numpy as np
 import os
 from tqdm import tqdm
+import time
 
 
 class Shuiyuan:
@@ -37,6 +38,7 @@ class Shuiyuan:
             raise SystemExit(err)
         else:
             # print('Successfully fetched the page:', self.url)
+            time.sleep(0.1)
             return response.json()
 
 
