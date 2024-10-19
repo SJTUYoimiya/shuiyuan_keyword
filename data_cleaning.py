@@ -60,7 +60,7 @@ def read_all_contexts(record):
     return df_text, df_emoji
 
 if __name__ == '__main__':
-    with open('tmp/post_id.txt', 'r') as f:
+    with open('tmp/post_id.txt', 'r', encoding='UTF-8') as f:
         record = []
         for line in f:
             topic_id, post_id = line.strip().split(',')
@@ -70,5 +70,5 @@ if __name__ == '__main__':
 
     contexts, emojis = read_all_contexts(record[:10])
     
-    contexts.to_csv('./tmp/context.csv', index=False)
-    emojis.to_csv('./tmp/emoji.csv', index=False)
+    contexts.to_csv('./tmp/context.csv', index=False, encoding='UTF-8')
+    emojis.to_csv('./tmp/emoji.csv', index=False, encoding='UTF-8')

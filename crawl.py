@@ -11,7 +11,7 @@ class Shuiyuan:
     headers: dict
 
     def __init__(self, url: str) -> None:
-        with open('cookies.txt', 'r') as f:
+        with open('cookies.txt', 'r', encoding='UTF-8') as f:
             cookies = f.read().strip()
         self.url = url
         self.headers = {
@@ -28,13 +28,15 @@ class Shuiyuan:
         }
 
     def requ(self):
-        response = requests.get(self.url, headers=self.headers)
-
-        if response.status_code == 200:
+        try:
+            response = requests.get(self.url, headers=self.headers)
+            response.raise_for_status()
+        except requests.exceptions.RequestException as err:
+            print(f'Failed to fetch the page: {self.url}, \nerror:', err)
+            raise SystemExit(err)
+        else:
             print('Successfully fetched the page:', self.url)
             return response.json()
-        else:
-            print(f'Failed to fetch the page: {self.url}, \nstatus code:', response.status_code)
 
 
 def requ_id(username, offset):
@@ -95,7 +97,7 @@ if __name__ == '__main__':
     post_id_list = requ_id_list(username)
     print('Successfully fetched the post ids, you have', len(post_id_list), 'posts.')
 
-    with open('./tmp/post_id.txt', 'w') as f:
+    with open('./tmp/post_id.txt', 'w', encoding='UTF-8') as f:
         for post_id in post_id_list:
             f.write(f'{post_id[0]},{post_id[1]}\n')
     

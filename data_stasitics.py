@@ -6,7 +6,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 # load baidu stopwords
-with open('baidu_stopwords.txt', 'r') as f:
+with open('baidu_stopwords.txt', 'r', encoding='UTF-8') as f:
     stopwords = f.read().splitlines()
 
 # add stopwords
@@ -56,11 +56,11 @@ def main(df, username):
     tokens = tokenization(texts)
     df_tfidf = tfidf(tokens)
 
-    df_tfidf.to_csv(f'{username}/keywords.csv', index=False)
+    df_tfidf.to_csv(f'{username}/keywords.csv', index=False, encoding='UTF-8')
     draw_wordcloud(df_tfidf, username)
     print(f'Successfully saved the keywords and wordcloud to {username} folder.')
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('tmp/context.csv')
+    df = pd.read_csv('tmp/context.csv', encoding='UTF-8')
     main(df)

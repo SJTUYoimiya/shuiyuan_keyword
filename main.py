@@ -16,8 +16,8 @@ print('Successfully fetched the post ids, you have', len(post_id_list), 'posts.'
 df_text, df_emoji = read_all_contexts(post_id_list)
 
 # save the data
-df_text.to_csv(f'{username}/context.csv', index=False)
-# df_emoji.to_csv('data/emoji.csv', index=False)
+df_text.to_csv(f'{username}/context.csv', index=False, encoding='UTF-8')
+# df_emoji.to_csv('data/emoji.csv', index=False, encoding='UTF-8')
 
 # run data statistics
 main(df_text, username)
