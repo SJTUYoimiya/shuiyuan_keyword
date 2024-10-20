@@ -13,7 +13,7 @@ class Shuiyuan:
     headers: dict
 
     def __init__(self, url: str) -> None:
-        with open('cookies.txt', 'r', encoding='UTF-8') as f:
+        with open('./crawler/cookies.txt', 'r', encoding='UTF-8') as f:
             cookies = f.read().strip()
         self.url = url
         self.headers = {
