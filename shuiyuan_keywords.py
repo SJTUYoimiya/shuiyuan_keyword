@@ -87,7 +87,7 @@ def main(username):
     for post in all_posts_cooked:
         post, emoji = get_context(post)
         
-        if len(post) > 0:
+        if len(post) > 0 and '（帖子已被作者删除）' not in post:
             contexts.append(post)
             
         emojis.append(emoji)
