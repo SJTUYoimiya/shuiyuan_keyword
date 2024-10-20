@@ -65,6 +65,7 @@ def tfidf(tokens):
     return df
 
 
+############################################
 def draw_wordcloud(df):
     data_dict = df.set_index('Keyword')['Frequency'].to_dict()
     font_path = 'PingFangSC-Regular.ttf'
@@ -75,7 +76,7 @@ def draw_wordcloud(df):
     ax.axis('off')
     return fig
 
-############################################
+
 def main(username):
     user_archive = pd.read_csv('user_archive.csv')
     user_archive.dropna(axis=0, how='any', inplace=True)
