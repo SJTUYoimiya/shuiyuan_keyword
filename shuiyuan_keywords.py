@@ -7,6 +7,7 @@ import jieba
 from sklearn.feature_extraction.text import TfidfVectorizer
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import os
 
 ############################################
 # Remove unnecessary items from the context
@@ -106,4 +107,6 @@ def main(username):
 
 if __name__ == '__main__':
     username = input('Enter ur Shuiyuan username: ')
+    if not os.path.exists(username):
+        os.makedirs(username)
     main(username)
