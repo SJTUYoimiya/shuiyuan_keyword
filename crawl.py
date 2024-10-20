@@ -34,7 +34,7 @@ class Shuiyuan:
             response = requests.get(self.url, headers=self.headers)
             response.raise_for_status()
         except requests.exceptions.RequestException as err:
-            print(f'Failed to fetch the page: {self.url}, \nerror:', err)
+            print(f'Failed to fetch the page, \nerror:', err)
             raise SystemExit(err)
         else:
             # print('Successfully fetched the page:', self.url)
@@ -65,7 +65,7 @@ def requ_id_list(username, deleted_posts=100):
     offsets = np.arange(0, max_posts, 30)
     id_list = []
 
-    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers=max(12, os.cpu_count())) as executor:
         futures = [executor.submit(requ_id, username, offset) for offset in offsets]
         for future in tqdm(futures, total=len(futures), desc='Fetching post ids', ncols=80, unit='post'):
             id_list.append(future.result())
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     post_id_list = requ_id_list(username)
     print('Successfully fetched the post ids, you have', len(post_id_list), 'posts.')
 
-    with open('./tmp/post_id.txt', 'w', encoding='UTF-8') as f:
+    with open(f'{username}/post_id.txt', 'w', encoding='UTF-8') as f:
         for post_id in post_id_list:
             f.write(f'{post_id[0]},{post_id[1]}\n')
     

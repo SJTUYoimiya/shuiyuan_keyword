@@ -44,7 +44,7 @@ def read_all_contexts(record):
     df_text = pd.DataFrame(columns=['topic', 'post', 'context'])
     df_emoji = pd.DataFrame(columns=['topic', 'post', 'emoji_list'])
 
-    with ThreadPoolExecutor(max_workers=os.cpu_count()) as executor:
+    with ThreadPoolExecutor(max_workers=max(12, os.cpu_count())) as executor:
         futures = [executor.submit(read_context, topic_id, post_id) for topic_id, post_id in record]
         for future in tqdm(futures, total=len(futures), desc='Fetching post context', ncols=80, unit='post'):
             if future.result() is None:
